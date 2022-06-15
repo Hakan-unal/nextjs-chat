@@ -13,7 +13,6 @@ export default function Home(props) {
     fetch('api/messages')
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.data)
         setMessages(res.data)
         setLoading(false)
       })

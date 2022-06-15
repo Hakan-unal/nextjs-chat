@@ -6,7 +6,7 @@ const postMethod = (json) => {
         const tempArr = [...messages];
         const obj = {
             ...json,
-            id: parseInt(Math.random() * 1000000)
+            id: messages.length + 1
         }
         tempArr.push(obj)
         messages = tempArr;
