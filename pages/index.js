@@ -3,8 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-export default function Home({ datas }) {
-  const [data, setData] = useState(null)
+export default function Home(props) {
+  const [messages, setMessages] = useState([])
   const [isLoading, setLoading] = useState(false)
 
 
@@ -12,8 +12,9 @@ export default function Home({ datas }) {
     setLoading(true)
     fetch('api/messages')
       .then((res) => res.json())
-      .then((data) => {
-        setData(data)
+      .then((res) => {
+        console.log(res.data)
+        setMessages(res.data)
         setLoading(false)
       })
   }, [])
@@ -30,9 +31,9 @@ export default function Home({ datas }) {
         <div>
           merhaba
         </div>
-        {datas.map((data, index) => {
+        {messages.map((message, index) => {
           return (
-            <span key={index}>{data.id}</span>
+            <span key={index}>{message.id}</span>
           )
         })}
       </main>
