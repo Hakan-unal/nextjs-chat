@@ -17,7 +17,7 @@ const postMethod = (json) => {
     }
 }
 
-const getMethod = (json) => {
+const getMethod = () => {
     try {
         const tempArr = [...messages];
         return tempArr
