@@ -17,7 +17,6 @@ const Dashboard = ({ datas }) => {
     )
 }
 
-export default Dashboard
 
 
 export const getStaticProps = async () => {
@@ -29,3 +28,6 @@ export const getStaticProps = async () => {
         props: { datas: [{ id: 1 }, { id: 2 }] }
     }
 }
+
+
+export default Dashboard
