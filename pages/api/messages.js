@@ -87,9 +87,8 @@ export default async function handler(req, res) {
         case "PUT":
 
             const putResult = await putMethod(req.body)
-            console.log(putResult)
             if (putResult) {
-                res.status(200).json({ message: "Success post method", data: putResult });
+                res.status(200).json({ message: "Success put method" });
             } else {
                 res.status(400).json({ message: "Error" });
             }
