@@ -19,11 +19,20 @@ export default function Home(props) {
   }
 
   const handleEdit = (dataID) => {
-    console.log(dataID)
+    const val = document.getElementById("input" + dataID).value
+
+    const payload = JSON.stringify({
+      id: dataID,
+      name: val
+    })
+
+    fetch('api/messages', { method: 'PUT', body: payload })
+      .then((res) => {
+        setApiTrigger(!apiTrigger)
+      })
   }
 
   const handleDelete = (dataID) => {
-    console.log(dataID)
     fetch('api/messages', { method: 'DELETE', body: dataID })
       .then((res) => {
         setApiTrigger(!apiTrigger)
@@ -54,7 +63,7 @@ export default function Home(props) {
           return (
             <div style={{ marginTop: 10 }} key={index}>
               <span>
-                <input defaultValue={message.name}></input>
+                <input id={"input" + message.id} defaultValue={message.name}></input>
               </span>
               <span>
 

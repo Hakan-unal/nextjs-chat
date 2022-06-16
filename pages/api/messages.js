@@ -38,6 +38,28 @@ const deleteMethod = (dataID) => {
     }
 }
 
+const putMethod = (data) => {
+    const value = JSON.parse(data)
+    try {
+        const tempArr = messages.map((val) => {
+            if (val.id !== parseInt(value.id)) return val
+            else {
+                return {
+                    ...val,
+                    name: value.name
+                }
+            }
+        })
+        messages = tempArr
+        return true
+    }
+    catch {
+        return false
+    }
+}
+
+
+
 
 export default async function handler(req, res) {
     switch (req.method) {
@@ -62,7 +84,17 @@ export default async function handler(req, res) {
 
             break;
 
-        case "PUT": res.status(200).json({ name: 'put method' }); break;
+        case "PUT":
+
+            const putResult = await putMethod(req.body)
+            console.log(putResult)
+            if (putResult) {
+                res.status(200).json({ message: "Success post method", data: putResult });
+            } else {
+                res.status(400).json({ message: "Error" });
+            }
+
+            break;
 
         case "DELETE":
             const deleteResult = await deleteMethod(req.body)
