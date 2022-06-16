@@ -8,15 +8,22 @@ export default function Home(props) {
   const [isLoading, setLoading] = useState(false)
   const [value, setValue] = useState("")
   const [apiTrigger, setApiTrigger] = useState(false)
-  const handlePost = () => {
-    console.log(value)
 
+
+  const handlePost = () => {
     fetch('api/messages', { method: 'POST', body: value })
       .then((res) => {
         setValue("")
         setApiTrigger(!apiTrigger)
       })
+  }
 
+  const handleEdit = (dataID) => {
+    console.log(dataID)
+  }
+
+  const handleDelete = (dataID) => {
+    console.log(dataID)
   }
 
   useEffect(() => {
@@ -38,16 +45,27 @@ export default function Home(props) {
       </Head>
 
       <main className={styles.main}>
-        <div>
-          merhaba
-        </div>
+
         {messages.map((message, index) => {
           return (
-            <span key={index}>{message.name}</span>
+            <div style={{ marginTop: 10 }} key={index}>
+              <span>
+                <input defaultValue={message.name}></input>
+              </span>
+              <span>
+
+                <button onClick={() => handleEdit(message.id)}>edit</button>
+              </span>
+              <span>
+
+                <button onClick={() => handleDelete(message.id)}>delete</button>
+              </span>
+
+            </div>
           )
         })}
 
-        <input onChange={(event) => setValue(event.target.value)} value={value}></input>
+        <input style={{ marginTop: 100 }} onChange={(event) => setValue(event.target.value)} value={value}></input>
         <button onClick={() => handlePost()}>Kaydet</button>
       </main>
 
