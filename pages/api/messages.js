@@ -5,7 +5,7 @@ const postMethod = (json) => {
     try {
         const tempArr = [...messages];
         const obj = {
-            ...json,
+            name: json,
             id: messages.length + 1
         }
         tempArr.push(obj)

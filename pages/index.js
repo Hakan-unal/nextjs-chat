@@ -6,7 +6,18 @@ import styles from '../styles/Home.module.css'
 export default function Home(props) {
   const [messages, setMessages] = useState([])
   const [isLoading, setLoading] = useState(false)
+  const [value, setValue] = useState("")
+  const [apiTrigger, setApiTrigger] = useState(false)
+  const handlePost = () => {
+    console.log(value)
 
+    fetch('api/messages', { method: 'POST', body: value })
+      .then((res) => {
+        setValue("")
+        setApiTrigger(!apiTrigger)
+      })
+
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -16,7 +27,7 @@ export default function Home(props) {
         setMessages(res.data)
         setLoading(false)
       })
-  }, [])
+  }, [apiTrigger])
 
   return (
     <div className={styles.container}>
@@ -32,9 +43,12 @@ export default function Home(props) {
         </div>
         {messages.map((message, index) => {
           return (
-            <span key={index}>{message.id}</span>
+            <span key={index}>{message.name}</span>
           )
         })}
+
+        <input onChange={(event) => setValue(event.target.value)} value={value}></input>
+        <button onClick={() => handlePost()}>Kaydet</button>
       </main>
 
 
