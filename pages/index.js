@@ -24,6 +24,10 @@ export default function Home(props) {
 
   const handleDelete = (dataID) => {
     console.log(dataID)
+    fetch('api/messages', { method: 'DELETE', body: dataID })
+      .then((res) => {
+        setApiTrigger(!apiTrigger)
+      })
   }
 
   useEffect(() => {
@@ -66,7 +70,7 @@ export default function Home(props) {
         })}
 
         <input style={{ marginTop: 100 }} onChange={(event) => setValue(event.target.value)} value={value}></input>
-        <button onClick={() => handlePost()}>Kaydet</button>
+        <button onClick={() => handlePost()}>Gönder</button>
       </main>
 
 

@@ -6,7 +6,7 @@ const postMethod = (json) => {
         const tempArr = [...messages];
         const obj = {
             name: json,
-            id: messages.length + 1
+            id: parseInt(Math.random() * 1000000)
         }
         tempArr.push(obj)
         messages = tempArr;
@@ -27,6 +27,16 @@ const getMethod = () => {
     }
 }
 
+const deleteMethod = (dataID) => {
+    try {
+        const tempArr = messages.filter((val) => val.id !== parseInt(dataID))
+        messages = tempArr
+        return true
+    }
+    catch {
+        return false
+    }
+}
 
 
 export default async function handler(req, res) {
@@ -51,8 +61,18 @@ export default async function handler(req, res) {
             }
 
             break;
+
         case "PUT": res.status(200).json({ name: 'put method' }); break;
-        case "DELETE": res.status(200).json({ name: 'delete method' }); break;
+
+        case "DELETE":
+            const deleteResult = await deleteMethod(req.body)
+            if (deleteResult) {
+                res.status(200).json({ message: "Success delete method" });
+            } else {
+                res.status(400).json({ message: "Error" });
+            }
+            break;
+
         default: res.status(400).json({ name: 'error' }); break;
     }
 }
