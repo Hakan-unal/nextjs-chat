@@ -63,6 +63,10 @@ export default function Home(props) {
           return (
             <div style={{ marginTop: 10 }} key={index}>
               <span>
+                {index + 1}.
+              </span>
+
+              <span>
                 <input id={"input" + message.id} defaultValue={message.name}></input>
               </span>
               <span>
@@ -73,7 +77,9 @@ export default function Home(props) {
 
                 <button onClick={() => handleDelete(message.id)}>delete</button>
               </span>
-
+              <span>
+                id: {message.id}
+              </span>
             </div>
           )
         })}
